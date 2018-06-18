@@ -1,0 +1,65 @@
+// STYLES ADDED BY JOHN
+
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+
+$sans: "Roboto Condensed", Tahoma, 'Gill Sans', 'Arial Narrow', Arial, sans-serif;
+$body: Lato, Calibri, Verdana, Arial, sans-serif;
+
+
+// Original styles
+
+$theme-shade-100: #C5CAE9;
+$theme-shade-200: #9FA8DA;
+$theme-shade-300: #7986CB;
+$theme-shade-400: #5C6BC0;
+$theme-shade-500: #3F51B5;
+$theme-shade-600: #3949AB;
+$theme-shade-700: #304FFE;
+$theme-shade-800: #283593;
+$theme-shade-900: #1A237E;
+
+
+$primary-color: $theme-shade-600;
+$secondary-override-color: #F50057;
+$secondary-color: $secondary-override-color;
+$danger-color: #D50000;
+$warning-color: #ff8f24;
+
+$primary-button-color: $theme-shade-400;
+$danger-button-color: $danger-color;
+
+$form-focus-color: $primary-color;
+$form-error-color: $danger-color;
+$form-transition-speed: 0.28s !default;
+
+$base-lr-gutter: 24px;
+
+$snackbar-background-color: #323232 !default;
+$snackbar-foreground-color: #FFFFFF !default;
+$snackbar-secondary-color: #B0BEC5 !default;
+$snackbar-tablet-breakpoint: 600px;
+
+$standard-curve-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+$spinner-offset: 187;
+$spinner-duration: 1.4s;
+
+$tab-primary-color: $primary-color;
+$tab-secondary-color: lighten(desaturate($primary-color, 75%), 35%);
+$tab-ripple-opacity: 0.32;
+$tab-ripple-radius: 100%;
+$tab-height-with-text: 48px;
+$tab-height-with-icon-and-text: 72px;
+$animation-deceleration-curve-timing-function: cubic-bezier(0, 0, .2, 1);
+$animation-acceleration-curve-timing-function: cubic-bezier(.4, 0, 1, 1);
+
+$dropdown-arrow-padding: 24px;
+$fancy-select-primary-color: #0185D3;
+$fancy-select-text-choices-color: rgba(0, 0, 0, 0.54);
+$fancy-select-text-disabled-color: #AAAAAA;
+$fancy-select-text-hint-color: #777777;
+$fancy-select-background-color: #BE1337;
+$fancy-select-primary-text-color: rgba(0,0,0,0.87);
+$simple-menu-fade-duration: 0.2s;
+$simple-menu-item-fade-duration: 0.3s;

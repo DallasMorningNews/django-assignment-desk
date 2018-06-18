@@ -1,0 +1,59 @@
+{% extends 'assignment_desk/base.html' %}
+
+
+{% load bootstrap3 humanize %}
+
+
+{% block html_title %}Assignment lists | {{ block.super }}{% endblock %}
+
+
+{% block body_class %}week-list{% endblock %}
+
+
+{% block left_nav_buttons %}{% endblock %}
+
+
+{% block nav_header %}Assignment desk{% endblock %}
+
+
+{% block aside_shown %}shown{% endblock %}
+
+
+{% block content_above_list %}
+<div class="list-action-holder">
+    {% url 'assignment-desk:week-create' as create_week %}
+    {% bootstrap_button 'Add assignment list' extra_classes='btn-theme-secondary' button_type='link' href=create_week %}
+</div>
+{% endblock %}
+
+
+{% block content_inner %}
+    {% for week in week_list %}
+        {% url 'assignment-desk:week-detail' pk=week.pk as detail_link %}
+        {% url 'assignment-desk:week-edit' pk=week.pk as edit_link %}
+        {% comment %}{% url 'assignment-desk:week-delete' pk=week.pk as delete_link %}{% endcomment %}
+
+        <li class="card-holder">
+            <div class="card">
+                <div class="card-content three-line">
+                    <h4><a href="{{ detail_link }}" class="card-link">{{ week.role_type.name }} department assignments starting {{ week.beginning_date|date:'N j' }}</a></h4>
+                    <p class="card-text">{{ week.beginning_date|date:'N j, Y' }}&thinsp;&ndash;&thinsp;{{ week.ending_date|date:'N j, Y' }}</p>
+                    <p>{{ week.assigned_staffers.count|apnumber|capfirst }} assignment{{ week.assigned_staffers.count|pluralize }}</p>
+                </div>
+                <div class="form-actions">
+                    <a href="{{ detail_link }}" class="btn btn-flat btn-primary view-action"><i class="material-icons btn-icon">visibility</i>&nbsp;View</a>
+                    <a href="{{ edit_link }}" class="btn btn-flat btn-primary edit-action"><i class="material-icons btn-icon">edit</i>&nbsp;Change</a>
+                    <a href="" class="btn btn-flat btn-danger delete-action"><i class="material-icons btn-icon">delete</i>&nbsp;Delete</a>
+                </div>
+            </div>
+        </li>
+    {% endfor %}
+{% endblock %}
+
+
+{% block main_extra %}
+{% url 'assignment-desk:week-create' as create_week %}
+<a class="fab fab-delayed material-icons fab-exited" aria-label="Add assignment list" href="{{ create_week }}">
+    <span class="fab__icon">add</span>
+</a>
+{% endblock %}

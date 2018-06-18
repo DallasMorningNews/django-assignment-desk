@@ -1,0 +1,69 @@
+{% extends 'assignment_desk/base.html' %}
+
+
+{% load dict_itemgetter %}
+
+
+{% block html_title %}Assignment lists | {{ block.super }}{% endblock %}
+
+
+{% block body_class %}week-detail{% endblock %}
+
+
+{% block left_nav_buttons %}{% endblock %}
+
+
+{% block nav_header %}View list: {{ week.role_type.name }} department assignments starting {{ week.beginning_date|date:'N j' }}{% endblock %}
+
+
+{% block aside_shown %}shown{% endblock %}
+
+
+{% block content %}
+<div class="fullscreen-card week-primary-card table-card">
+    <div class="table-header">
+        <h3 class="week-title">{{ week.role_type.name }} department assignments</h3>
+        <h5 class="date-range">{{ week.beginning_date|date:'N j, Y' }}&thinsp;&ndash;&thinsp;{{ week.ending_date|date:'N j, Y' }}</h5>
+    </div>
+
+    <table class="assignments-table">
+        <thead>
+            <tr>
+                <th class="role-name">Role</th>
+                <th class="weekday">Monday</th>
+                <th class="weekday">Tuesday</th>
+                <th class="weekday">Wednesday</th>
+                <th class="weekday">Thursday</th>
+                <th class="weekday">Friday</th>
+                <th class="weekend">Saturday</th>
+                <th class="weekend">Sunday</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for role in available_roles %}
+            <tr>
+                <td class="role-name"><span class="color-swatch" style="color: {{ role.color }};"></span><span class="name">{{ role.name }}</span></td>
+
+                {% with monday_assignment=roles_with_assignments|get_item:role.slug|get_item:'monday' tuesday_assignment=roles_with_assignments|get_item:role.slug|get_item:'tuesday' wednesday_assignment=roles_with_assignments|get_item:role.slug|get_item:'wednesday' thursday_assignment=roles_with_assignments|get_item:role.slug|get_item:'thursday' friday_assignment=roles_with_assignments|get_item:role.slug|get_item:'friday' saturday_assignment=roles_with_assignments|get_item:role.slug|get_item:'saturday' sunday_assignment=roles_with_assignments|get_item:role.slug|get_item:'sunday' %}
+
+                {% include "assignment_desk/partials/assigned_staffer.html" with staffer=monday_assignment day_class='weekday monday'%}
+
+                {% include "assignment_desk/partials/assigned_staffer.html" with staffer=tuesday_assignment day_class='weekday tuesday'%}
+
+                {% include "assignment_desk/partials/assigned_staffer.html" with staffer=wednesday_assignment day_class='weekday wednesday'%}
+
+                {% include "assignment_desk/partials/assigned_staffer.html" with staffer=thursday_assignment day_class='weekday thursday'%}
+
+                {% include "assignment_desk/partials/assigned_staffer.html" with staffer=friday_assignment day_class='weekday friday'%}
+
+                {% include "assignment_desk/partials/assigned_staffer.html" with staffer=saturday_assignment day_class='weekend saturday'%}
+
+                {% include "assignment_desk/partials/assigned_staffer.html" with staffer=sunday_assignment day_class='weekend sunday'%}
+
+                {% endwith %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% if staffer %}
+    <td class="{{ day_class }}" data-staffer-name="{{ staffer.full_name }}" data-staffer-image="{{ staffer.image_url }}" data-staffer-email="{{ staffer.email }}" data-staffer-phone="TK">
+        <div class="staffer-info">
+            <img class="staffer-image" src="{{ staffer.image_url }}" alt="{{ staffer.full_name }}" />
+            <p class="staffer-name">{{ staffer.first_name.0 }}. {{ staffer.last_name }}</p>
+        </div>
+    </td>
+{% else %}
+    <td class="{{ day_class }} empty"></td>
+{% endif %}

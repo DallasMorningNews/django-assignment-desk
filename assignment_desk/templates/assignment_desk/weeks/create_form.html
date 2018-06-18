@@ -1,0 +1,70 @@
+{% extends 'assignment_desk/base.html' %}
+
+
+{% load bootstrap3 %}
+
+
+{% block html_title %}Create assignment list | {{ block.super }}{% endblock %}
+
+
+{% block stylesheets %}
+{{ block.super }}
+{{ form.media }}
+{% endblock %}
+
+
+{% block body_class %}week-create{% endblock %}
+
+
+{% block back_nav_link %}{% url 'assignment-desk:week-list' %}{% endblock %}
+
+
+{% block nav_header %}Create assignment list{% endblock %}
+
+
+{% block right_nav_buttons %}{% endblock %}
+
+
+{% block content %}
+<form action="" method="POST">
+    <div class="fullscreen-card week-primary-card">
+        {% bootstrap_form_errors form %}
+
+        {% if form.non_field_errors %}
+        <div class="non-field-error-padding">
+            <ul class="non-field-errors knockout">
+                {% for error_message in form.non_field_errors %}
+                <li class="form-error">{{ error_message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+
+        <div class="form--twoup clearfix">
+            <div class="form-group-container form-input--half" id="form__beginning-date">
+                {% bootstrap_field form.beginning_date layout='immaterial' %}
+            </div>
+
+            <div class="form-group-container form-input--quarter" id="form__beginning-date">
+                {% bootstrap_field form.role_type layout='immaterial' %}
+            </div>
+        </div>
+
+        <div class="form-group-container form-input--full" id="form__extra-information">
+          {% bootstrap_field form.extra_information layout='immaterial' %}
+        </div>
+
+        {% csrf_token %}
+    </div>
+
+    <div class="edit-actions">
+        <div class="wrap">
+            <div class="right-buttons">
+                {% bootstrap_button 'Save' extra_classes='btn-primary' button_type='submit' name="submit" value="_save" %}
+                {% bootstrap_button 'Save & continue editing' extra_classes='btn-primary-flat' button_type='submit' name="submit" value="_continue" %}
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,10 @@
+include LICENSE
+include README.md
+recursive-include assignment_desk/static *
+recursive-include assignment_desk/templates *
+recursive-include assignment_desk/fixtures *
+recursive-include assignment_desk/staticapp/gulp *
+recursive-include assignment_desk/staticapp/js *
+recursive-include assignment_desk/staticapp/scss *
+include assignment_desk/staticapp/gulpfile.js
+include assignment_desk/staticapp/package.json

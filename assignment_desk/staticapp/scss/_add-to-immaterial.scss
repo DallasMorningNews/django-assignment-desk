@@ -1,0 +1,224 @@
+aside {
+    height: calc(100vh - 64px);
+    padding-top: 0;
+    position: relative;
+
+    .side-items {
+        padding-top: 8px;
+        .sidebar-header {
+            .close-trigger {
+                display: none;
+            }
+        }
+    }
+
+    @media(max-width: 719px) {
+        height: 100vh;
+        margin-top: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 1200;
+
+        &::before {
+            background: rgba(0,0,0,0.6);
+            bottom: 0;
+            content: '';
+            left: 0;
+            opacity: 0;
+            pointer-events: none;
+            position: fixed;
+            right: 0;
+            top: 0;
+            transition: opacity 0.3s ease;
+            will-change: opacity;
+        }
+
+        &.shown {
+            &::before {
+                opacity: 1;
+                pointer-events: all;
+            }
+        }
+
+        .side-items {
+            background-color: #FFFFFF;
+            padding-top: 0;
+            position: relative;
+
+            .sidebar-header {
+                position: relative;
+
+                .close-trigger {
+                    color: rgba(0,0,0,0.38);
+                    cursor: pointer;
+                    display: block;
+                    position: absolute;
+                    right: 16px;
+                    top: 18px;
+
+                    &:hover {
+                        color: rgba(0,0,0,0.6);
+                    }
+
+                    .material-icons {
+                        font-weight: bold;
+                        line-height: 28px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.fullscreen-card {
+    border-radius: 2px;
+    margin-bottom: 84px;
+
+    .first-child-adjust {
+        margin-top: -20px;
+    }
+}
+
+.table-card {
+    padding: 0;
+
+    .list-header {
+        box-sizing: border-box;
+        display: flex;
+        height: 64px;
+        justify-content: space-between;
+        padding: 8px 6px 8px 22px;
+
+        h4 {
+          @include typography-title();
+          height: 32px;
+          line-height: 32px;
+          margin: 8px 0;
+        }
+
+        .btn {
+            min-width: 60px;
+            padding: 6px 12px;
+        }
+    }
+
+    table {
+        text-align: left;
+        width: 100%;
+
+        th, td {
+            padding-left: 56px;
+            padding-right: 0;
+
+            &:first-child {
+                padding-left: 24px;
+                padding-right: 0;
+            }
+
+            &:last-child {
+                padding-left: 56px;
+                padding-right: 24px;
+            }
+        }
+
+        thead {
+
+            tr {
+                color: rgba(0,0,0,0.54);
+                font-size: 12px;
+                height: 56px;
+                line-height: 56px;
+
+                th {
+                    font-weight: normal;
+                    padding-bottom: 0;
+                    padding-top: 0;
+                }
+            }
+        }
+
+        tbody {
+            color: rgba(0,0,0,0.87);
+            font-size: 13px;
+            height: 48px;
+            line-height: 48px;
+
+            tr {
+                border-top: 1px solid #E0E0E0;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #EEEEEE;
+                }
+
+                td {
+                    box-sizing: border-box;
+                    height: 48px;
+                    line-height: 18px;
+                    padding-bottom: 15px;
+                    padding-top: 15px;
+
+                    &.boolean {
+                        color: rgba(0,0,0,0.38);
+
+                        &.true {
+                            color: $secondary-color;
+                        }
+
+                        .material-icons {
+                            display: flex;
+                            font-size: 18px;
+                            font-weight: bold;
+                            justify-content: center;
+                            line-height: 18px;
+                            height: 18px;
+                        }
+                    }
+
+                    &.numeric {
+                        text-align: right;
+                    }
+                }
+            }
+        }
+    }
+
+    .table-pagination {
+        border-top: 1px solid #E0E0E0;
+        color: rgba(0,0,0,0.54);
+        display: flex;
+        font-size: 0;
+        height: 56px;
+        justify-content: flex-end;
+        line-height: 56px;
+        padding: 0 2px 0 24px;
+
+        .current-range {
+            font-size: 12px;
+            padding-right: 20px;
+        }
+
+        .btn {
+            border-radius: 18px;
+            margin: 10px 6px;
+            min-width: 36px;
+            padding: 6px;
+            width: 36px;
+
+            &.disabled {
+                color: rgba(0,0,0,0.18);
+
+                &:hover {
+                    cursor: default;
+                    pointer-events: none;
+
+                    &::before,
+                    &::after {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
