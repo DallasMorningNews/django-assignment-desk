@@ -4,10 +4,18 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django-bootstrap3 = ">=9.0.0"
-django-colorfield = "*"
+django-bootstrap3 = "~=9.0.0"
+django-colorfield = "~=0.1.10"
+Django = ">=1.11.0"
 
 [dev-packages]
+coverage = "*"
+flake8 = "*"
+freezegun = "*"
+ipython = "*"
+mock = "*"
+moto = "==0.4.31"
+tblib = "*"
 twine = "*"
 
 [requires]
