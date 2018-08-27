@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 # Imports from Django.
 from django.db import models
+from django.contrib.postgres.fields import JSONField
 from django.utils.dateformat import format as df
 
 
@@ -22,6 +23,9 @@ class RoleType(models.Model):
 
     priority = models.PositiveSmallIntegerField(default=10)
 
+    class Meta:  # NOQA
+        ordering = ['priority', 'name']
+
     def __str__(self):
         return self.name
 
@@ -35,6 +39,9 @@ class Role(models.Model):
     type = models.ForeignKey(RoleType, related_name='roles')
 
     priority = models.PositiveSmallIntegerField(default=10)
+
+    class Meta:  # NOQA
+        ordering = ['priority', 'name']
 
     def __str__(self):
         return '{} ({})'.format(self.name, self.type.name)
@@ -71,7 +78,9 @@ class Assignment(models.Model):
     staffer = models.ForeignKey(
         Staffer,
         related_name='assignments',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
     )
 
     role = models.ForeignKey(
@@ -81,6 +90,9 @@ class Assignment(models.Model):
     )
     day = models.DateField()
     notes = models.TextField(blank=True, null=True)
+
+    class Meta:  # NOQA
+        ordering = ['role', 'day']
 
     def __str__(self):
         return '{} — {} for {} ({})'.format(
