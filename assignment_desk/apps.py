@@ -6,3 +6,6 @@ from django.apps import AppConfig
 
 class AssignmentDeskConfig(AppConfig):
     name = 'assignment_desk'
+
+    def ready(self):
+        import assignment_desk.signals
