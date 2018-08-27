@@ -4,10 +4,13 @@ from setuptools import find_packages
 from setuptools import setup
 
 
+# Imports from django-assignment-desk.
+from assignment_desk import __version__
+
+
 REPO_URL = 'https://github.com/DallasMorningNews/django-assignment-desk/'
 
-PYPI_VERSION = '0.0.1'
-
+PYPI_VERSION = '.'.join(str(v) for v in __version__)
 
 with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
     README = readme.read()
@@ -51,10 +54,9 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
     ],
     install_requires=[
-        # 'Django~=1.11.0',
+        'Django>=1.11.0',
         'django-bootstrap3~=9.0.0',
         'django-colorfield~=0.1.10',
-        # 'probablepeople~=0.5.4',
         # 'slacker~=0.9.0',
     ],
 )
