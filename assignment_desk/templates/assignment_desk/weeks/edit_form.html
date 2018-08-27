@@ -1,10 +1,10 @@
 {% extends 'assignment_desk/base.html' %}
 
 
-{% load bootstrap3 %}
+{% load bootstrap3 dict_itemgetter list_membership static %}
 
 
-{% block html_title %}Create assignment list | {{ block.super }}{% endblock %}
+{% block html_title %}Edit assignment list | {{ block.super }}{% endblock %}
 
 
 {% block stylesheets %}
@@ -13,7 +13,7 @@
 {% endblock %}
 
 
-{% block body_class %}week-create{% endblock %}
+{% block body_class %}week-edit{% endblock %}
 
 
 {% block back_nav_link %}{% url 'assignment-desk:week-list' %}{% endblock %}
@@ -27,10 +27,66 @@
 
 {% block content %}
 <form action="" method="POST">
-    <div class="fullscreen-card week-primary-card">
-        {% bootstrap_form_errors form %}
+    <div class="list-header">
+        <h4>Assignments</h4>
+    </div>
 
-        {% if form.non_field_errors %}
+    <div class="fullscreen-card table-card assignments-formset">
+        {{ inline_formset.management_form }}
+
+        {% regroup inline_formset by instance.role_id as formset_by_role %}
+
+        <table id="assignment-forms">
+            <thead>
+                <tr data-role="days">
+                    <th class="spacer"></th>
+                    {% for assignment in formset_by_role.0.list %}
+                        <th class="{% if assignment.instance.day|date:'w'|in_list:'0,6' %}weekend{% else %}weekday{% endif %}" data-day="{{ assignment.instance.day|date:'l'|lower }}">{{ assignment.instance.day|date:'l' }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+
+            {% for role_id, role_forms in formset_by_role %}
+                <tr data-role="{{ role_crosswalk|get_item:role_id|get_item:'slug' }}">
+                    <td class="role-name">{{ role_crosswalk|get_item:role_id|get_item:'name' }}</td>
+
+                    {% for assignment_form in role_forms %}
+                        <td class="{% if assignment_form.instance.day|date:'w'|in_list:'0,6' %}weekend{% else %}weekday{% endif %}{% if not assignment_form.staffer.value %} empty{% endif %}{% if assignment_form.notes.value %} has-notes{% endif %}" data-date="{{ assignment_form.instance.day|date:'Y-m-d' }}" data-day="{{ assignment_form.instance.day|date:'l'|lower }}" data-day-formatted="{{ assignment_form.instance.day|date:'N j' }}" data-prefix="{{ assignment_form.prefix }}">
+                            <div class="per-assignment-fields">{{ assignment_form.as_p }}</div>
+
+                            {% if assignment_form.staffer.value != None %}
+                                <div class="staffer-info">
+                                    {% with staffer_data=staff_by_id|get_item:assignment_form.staffer.value %}
+                                    <img class="staffer-image" src="{{ staffer_data|get_item:'imageURL' }}" title="{{ staffer_data|get_item:'fullName' }}" alt="{{ staffer_data|get_item:'fullName' }}" />
+                                    <p class="staffer-name" title="{{ staffer_data|get_item:'fullName' }}">{{ staffer_data|get_item:'firstName'|make_list|first }}. {{ staffer_data|get_item:'lastName' }}</p>
+                                    {% endwith %}
+                                </div>
+                            {% else %}
+                                <div class="staffer-info">
+                                    <img class="staffer-image" src="" title="" alt="" />
+                                    <p class="staffer-name" title=""></p>
+                                </div>
+                            {% endif %}
+
+                            <div class="notes-trigger" title="Notes for this assignment"><i class="material-icons md-24">announcements</i><div class="close-notes"></div></div>
+
+                            {% if not forloop.last %}
+                            <div class="copy-to-subsequent-days btn btn-default btn-theme-secondary" title="Copy to rest of week"><i class="material-icons md-24">input</i></div>
+                            {% else %}
+                            <div class="cannot-copy-because-last"><i class="material-icons md-24">keyboard_tab</i></div>
+                            {% endif %}
+                        </div>
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="fullscreen-card week-primary-card">
+        {% bootstrap_form_errors form %} {% if form.non_field_errors %}
         <div class="non-field-error-padding">
             <ul class="non-field-errors knockout">
                 {% for error_message in form.non_field_errors %}
@@ -38,10 +94,10 @@
                 {% endfor %}
             </ul>
         </div>
-        {% endif %}
+        {% endif %} {% bootstrap_formset_errors inline_formset %}
 
         <div class="form-group-container form-input--full" id="form__extra-information">
-          {% bootstrap_field form.extra_information layout='immaterial' %}
+            {% bootstrap_field form.extra_information layout='immaterial' %}
         </div>
 
         {% csrf_token %}
@@ -56,4 +112,12 @@
         </div>
     </div>
 </form>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+    window.stafferList = {{ staffers|safe }};
+</script>
+
+<script src="{% static 'assignment_desk/js/week.edit.js' %}"></script>
 {% endblock %}

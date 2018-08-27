@@ -1,7 +1,7 @@
 {% extends 'assignment_desk/base.html' %}
 
 
-{% load bootstrap3 %}
+{% load bootstrap3 static %}
 
 
 {% block html_title %}Create assignment list | {{ block.super }}{% endblock %}
@@ -46,13 +46,14 @@
                 {% bootstrap_field form.beginning_date layout='immaterial' %}
             </div>
 
-            <div class="form-group-container form-input--quarter" id="form__beginning-date">
+            <div class="form-group-container form-input--quarter" id="form__role-type">
                 {% bootstrap_field form.role_type layout='immaterial' %}
             </div>
         </div>
-
-        <div class="form-group-container form-input--full" id="form__extra-information">
-          {% bootstrap_field form.extra_information layout='immaterial' %}
+        <div class="form--twoup clearfix">
+            <div class="form-group-container form-input--threequarter" id="form__extra-information">
+            {% bootstrap_field form.extra_information layout='immaterial' %}
+            </div>
         </div>
 
         {% csrf_token %}
@@ -67,4 +68,10 @@
         </div>
     </div>
 </form>
+{% endblock %}
+
+
+{% block scripts %}
+<script src="{% static 'assignment_desk/js/form-elements.js' %}"></script>
+<script src="{% static 'assignment_desk/js/week.create.js' %}"></script>
 {% endblock %}
