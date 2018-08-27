@@ -21,6 +21,8 @@ module.exports = (watch) => {
   return () => {
     const files = glob.sync('./assignment_desk/staticapp/js/*.js');
 
+    console.log(files);
+
     const tasks = files.map((entry) => {
       const props = {
         entries: `./${entry}`,
@@ -44,7 +46,7 @@ module.exports = (watch) => {
               rename(
                   filePath => Object.assign(
                       filePath,
-                      { dirname: `assignment_desk/static/assignment_desk/js/` }
+                      { dirname: `./assignment_desk/static/assignment_desk/js/` }
                   )
               )
           )

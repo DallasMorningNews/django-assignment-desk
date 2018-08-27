@@ -1,6 +1,6 @@
 // STYLES ADDED BY JOHN
 
-@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,500,700');
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700');
 
 $sans: "Roboto Condensed", Tahoma, 'Gill Sans', 'Arial Narrow', Arial, sans-serif;
@@ -63,3 +63,6 @@ $fancy-select-background-color: #BE1337;
 $fancy-select-primary-text-color: rgba(0,0,0,0.87);
 $simple-menu-fade-duration: 0.2s;
 $simple-menu-item-fade-duration: 0.3s;
+
+
+$choices-bg-color: #EFEFEF;
