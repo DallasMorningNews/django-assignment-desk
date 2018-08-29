@@ -824,15 +824,7 @@ a.card-link {
         margin-top: 16px;
     }
 
-    .list-header h4 {
-        color: rgba(0, 0, 0, 0.54);
-        font-weight: 500;
-        line-height: 40px;
-        margin: 16px 8px 12px;
-        text-transform: uppercase;
-    }
-
-    .assignments-formset {
+    .assignment-table-card {
         margin-top: 0;
     }
 
@@ -1058,8 +1050,65 @@ a.card-link {
         }
     }
 
-    #assignment-forms {
+    .assignments-table {
         tr {
+            td:not(.role-name) {
+                cursor: pointer;
+
+                &.empty {
+                    &::after {
+                        content: 'TK' !important;
+                    }
+                }
+
+                &:hover {
+                    background-color: #EEEEEE;
+                }
+            }
+        }
+    }
+}
+
+.week-detail {
+    .week-primary-card {
+        margin-bottom: 36px;
+
+        .week-title {
+            margin-bottom: 10px;
+        }
+
+        .date-range {
+            margin-bottom: 7px;
+            color: rgba(0, 0, 0, 0.38);
+            text-transform: uppercase;
+            letter-spacing: 0;
+        }
+
+        .notes {
+            color: rgba(0, 0, 0, 0.68);
+            margin-bottom: 6px;
+            margin-top: 30px;
+        }
+    }
+
+    .assignment-table-card {
+        margin-top: 0;
+    }
+}
+
+.week-detail,
+.week-edit {
+    .list-header h4 {
+        color: rgba(0, 0, 0, 0.38);
+        font-weight: 400;
+        line-height: 40px;
+        margin: 16px 8px 12px;
+        text-transform: uppercase;
+    }
+
+    .assignments-table {
+        tr {
+
             th,
             td {
                 font-size: 0;
@@ -1108,16 +1157,16 @@ a.card-link {
                         width: 8px;
                     }
                 }
+
                 &:not(.role-name) {
-                    cursor: pointer;
                     position: relative;
                     text-align: center;
                     width: 10vw;
 
                     &.empty {
                         &::after {
-                            color: rgba(0,0,0,0.12);
-                            content: 'TK';
+                            color: rgba(0, 0, 0, 0.12);
+                            content: '-';
                             display: block;
                             font-size: 24px;
                             font-weight: 700;
@@ -1130,7 +1179,7 @@ a.card-link {
                     }
 
                     &:hover {
-                        background-color: #EEEEEE;
+                        // background-color: #EEEEEE;
                     }
 
                     @media(min-width: 960px) {
@@ -1210,6 +1259,7 @@ a.card-link {
                         visibility: hidden;
                         // width: 2vw;
                         width: 32px;
+
                         .material-icons {
                             // font-size: 1.2vw;
                             font-size: 18px;
@@ -1224,7 +1274,7 @@ a.card-link {
                     }
 
                     .cannot-copy-because-last {
-                        background-color: rgba(0,0,0,0.18);
+                        background-color: rgba(0, 0, 0, 0.18);
                         cursor: not-allowed;
 
                         .material-icons {
