@@ -1,0 +1,35 @@
+{% load dict_itemgetter %}
+
+
+<td class="{% spaceless %}{% include "assignment_desk/partials/is_weekday.html" %}{% endspaceless %}{% if not staffer %} empty{% endif %}{% if notes %} has-notes{% endif %}" data-date="{{ day|date:'Y-m-d' }}" data-day="{{ day|date:'l'|lower }}" data-day-formatted="{{ day|date:'N j' }}"{% if as_form is True %} data-prefix="{{ assignment_form.prefix }}"{% endif %}>
+    <div class="per-assignment-fields">{{ assignment_form.as_p }}</div>
+
+    {% if staffer != None %}
+        <div class="staffer-info">
+            {% if as_form is True %}
+            {% with staffer_data=staff_by_id|get_item:staffer %}
+                <img class="staffer-image" src="{{ staffer_data|get_item:'imageURL' }}" title="{{ staffer_data|get_item:'fullName' }}" alt="{{ staffer_data|get_item:'fullName' }}" />
+                <p class="staffer-name" title="{{ staffer_data|get_item:'fullName' }}">{{ staffer_data|get_item:'firstName'|make_list|first }}. {{ staffer_data|get_item:'lastName' }}</p>
+            {% endwith %}
+            {% elif staffer %}
+                <img class="staffer-image" src="{{ staffer.image_url }}" alt="{{ staffer.full_name }}" />
+                <p class="staffer-name">{{ staffer.first_name.0 }}. {{ staffer.last_name }}</p>
+            {% endif %}
+        </div>
+    {% else %}
+        <div class="staffer-info">
+            <img class="staffer-image" src="" title="" alt="" />
+            <p class="staffer-name" title=""></p>
+        </div>
+    {% endif %}
+
+    <div class="notes-trigger" title="{% if as_form is True%}Notes for this assignment{% else %}{{ notes }}{% endif %}"><i class="material-icons md-24">announcements</i><div class="close-notes"></div></div>
+
+    {% if as_form is True %}
+        {% if not forloop.last %}
+        <div class="copy-to-subsequent-days btn btn-default btn-theme-secondary" title="Copy to rest of week"><i class="material-icons md-24">input</i></div>
+        {% else %}
+        <div class="cannot-copy-because-last"><i class="material-icons md-24">keyboard_tab</i></div>
+        {% endif %}
+    {% endif %}
+</td>

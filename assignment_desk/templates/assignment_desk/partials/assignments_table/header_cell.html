@@ -1,0 +1,3 @@
+{% load list_membership %}
+
+<th class="{% spaceless %}{% include "assignment_desk/partials/is_weekday.html" %}{% endspaceless %}" data-day="{{ day|date:'l'|lower }}">{{ day|date:'l' }}</th>
