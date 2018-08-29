@@ -13,7 +13,7 @@
             {% endwith %}
             {% elif staffer %}
                 <img class="staffer-image" src="{{ staffer.image_url }}" alt="{{ staffer.full_name }}" />
-                <p class="staffer-name">{{ staffer.first_name.0 }}. {{ staffer.last_name }}</p>
+                <p class="staffer-name" title="{{ staffer.full_name }}">{{ staffer.first_name.0 }}. {{ staffer.last_name }}</p>
             {% endif %}
         </div>
     {% else %}
