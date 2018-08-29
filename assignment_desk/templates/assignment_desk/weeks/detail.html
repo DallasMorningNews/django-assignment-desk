@@ -1,7 +1,7 @@
 {% extends 'assignment_desk/base.html' %}
 
 
-{% load dict_itemgetter %}
+{% load dict_itemgetter static %}
 
 
 {% block html_title %}Assignment lists | {{ block.super }}{% endblock %}
@@ -20,50 +20,46 @@
 
 
 {% block content %}
-<div class="fullscreen-card week-primary-card table-card">
+<div class="fullscreen-card week-primary-card">
     <div class="table-header">
         <h3 class="week-title">{{ week.role_type.name }} department assignments</h3>
         <h5 class="date-range">{{ week.beginning_date|date:'N j, Y' }}&thinsp;&ndash;&thinsp;{{ week.ending_date|date:'N j, Y' }}</h5>
+        {% if week.extra_information %}<p class="notes"><strong>Notes:</strong> {{ week.extra_information }}</p>{% endif %}
     </div>
+</div>
+
+<div class="list-header">
+    <h4>Assignments</h4>
+</div>
+
+<div class="fullscreen-card table-card assignment-table-card">
+    {% regroup week.assignments.all by role_id as grouped_assigmnents %}
 
     <table class="assignments-table">
         <thead>
-            <tr>
-                <th class="role-name">Role</th>
-                <th class="weekday">Monday</th>
-                <th class="weekday">Tuesday</th>
-                <th class="weekday">Wednesday</th>
-                <th class="weekday">Thursday</th>
-                <th class="weekday">Friday</th>
-                <th class="weekend">Saturday</th>
-                <th class="weekend">Sunday</th>
+            <tr data-role="days">
+                <th class="spacer"></th>
+                {% for assignment in grouped_assigmnents.0.list %}
+                    {% include "assignment_desk/partials/assignments_table/header_cell.html" with day=assignment.day %}
+                {% endfor %}
             </tr>
         </thead>
         <tbody>
-            {% for role in available_roles %}
-            <tr>
-                <td class="role-name"><span class="color-swatch" style="color: {{ role.color }};"></span><span class="name">{{ role.name }}</span></td>
+            {% for role_id, role_assignments in grouped_assigmnents %}
+            <tr data-role="{{ role_crosswalk|get_item:role_id|get_item:'slug' }}">
+                <td class="role-name">{{ role_crosswalk|get_item:role_id|get_item:'name' }}</td>
 
-                {% with monday_assignment=roles_with_assignments|get_item:role.slug|get_item:'monday' tuesday_assignment=roles_with_assignments|get_item:role.slug|get_item:'tuesday' wednesday_assignment=roles_with_assignments|get_item:role.slug|get_item:'wednesday' thursday_assignment=roles_with_assignments|get_item:role.slug|get_item:'thursday' friday_assignment=roles_with_assignments|get_item:role.slug|get_item:'friday' saturday_assignment=roles_with_assignments|get_item:role.slug|get_item:'saturday' sunday_assignment=roles_with_assignments|get_item:role.slug|get_item:'sunday' %}
-
-                {% include "assignment_desk/partials/assigned_staffer.html" with staffer=monday_assignment day_class='weekday monday'%}
-
-                {% include "assignment_desk/partials/assigned_staffer.html" with staffer=tuesday_assignment day_class='weekday tuesday'%}
-
-                {% include "assignment_desk/partials/assigned_staffer.html" with staffer=wednesday_assignment day_class='weekday wednesday'%}
-
-                {% include "assignment_desk/partials/assigned_staffer.html" with staffer=thursday_assignment day_class='weekday thursday'%}
-
-                {% include "assignment_desk/partials/assigned_staffer.html" with staffer=friday_assignment day_class='weekday friday'%}
-
-                {% include "assignment_desk/partials/assigned_staffer.html" with staffer=saturday_assignment day_class='weekend saturday'%}
-
-                {% include "assignment_desk/partials/assigned_staffer.html" with staffer=sunday_assignment day_class='weekend sunday'%}
-
-                {% endwith %}
+                {% for assignment in role_assignments %}
+                {% include "assignment_desk/partials/assignments_table/body_cell.html" with day=assignment.day staffer=assignment.staffer notes=assignment.notes as_form=False %}
+                {% endfor %}
             </tr>
             {% endfor %}
         </tbody>
-    </ul>
+    </table>
 </div>
+{% endblock %}
+
+
+{% block scripts %}
+<script src="{% static 'assignment_desk/js/week.detail.js' %}"></script>
 {% endblock %}

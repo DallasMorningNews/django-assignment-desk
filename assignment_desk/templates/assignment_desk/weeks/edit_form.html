@@ -1,7 +1,7 @@
 {% extends 'assignment_desk/base.html' %}
 
 
-{% load bootstrap3 dict_itemgetter list_membership static %}
+{% load bootstrap3 dict_itemgetter static %}
 
 
 {% block html_title %}Edit assignment list | {{ block.super }}{% endblock %}
@@ -31,17 +31,17 @@
         <h4>Assignments</h4>
     </div>
 
-    <div class="fullscreen-card table-card assignments-formset">
+    <div class="fullscreen-card table-card assignment-table-card">
         {{ inline_formset.management_form }}
 
         {% regroup inline_formset by instance.role_id as formset_by_role %}
 
-        <table id="assignment-forms">
+        <table id="assignment-forms" class="assignments-table">
             <thead>
                 <tr data-role="days">
                     <th class="spacer"></th>
                     {% for assignment in formset_by_role.0.list %}
-                        <th class="{% if assignment.instance.day|date:'w'|in_list:'0,6' %}weekend{% else %}weekday{% endif %}" data-day="{{ assignment.instance.day|date:'l'|lower }}">{{ assignment.instance.day|date:'l' }}</th>
+                        {% include "assignment_desk/partials/assignments_table/header_cell.html" with day=assignment.instance.day %}
                     {% endfor %}
                 </tr>
             </thead>
@@ -52,32 +52,7 @@
                     <td class="role-name">{{ role_crosswalk|get_item:role_id|get_item:'name' }}</td>
 
                     {% for assignment_form in role_forms %}
-                        <td class="{% if assignment_form.instance.day|date:'w'|in_list:'0,6' %}weekend{% else %}weekday{% endif %}{% if not assignment_form.staffer.value %} empty{% endif %}{% if assignment_form.notes.value %} has-notes{% endif %}" data-date="{{ assignment_form.instance.day|date:'Y-m-d' }}" data-day="{{ assignment_form.instance.day|date:'l'|lower }}" data-day-formatted="{{ assignment_form.instance.day|date:'N j' }}" data-prefix="{{ assignment_form.prefix }}">
-                            <div class="per-assignment-fields">{{ assignment_form.as_p }}</div>
-
-                            {% if assignment_form.staffer.value != None %}
-                                <div class="staffer-info">
-                                    {% with staffer_data=staff_by_id|get_item:assignment_form.staffer.value %}
-                                    <img class="staffer-image" src="{{ staffer_data|get_item:'imageURL' }}" title="{{ staffer_data|get_item:'fullName' }}" alt="{{ staffer_data|get_item:'fullName' }}" />
-                                    <p class="staffer-name" title="{{ staffer_data|get_item:'fullName' }}">{{ staffer_data|get_item:'firstName'|make_list|first }}. {{ staffer_data|get_item:'lastName' }}</p>
-                                    {% endwith %}
-                                </div>
-                            {% else %}
-                                <div class="staffer-info">
-                                    <img class="staffer-image" src="" title="" alt="" />
-                                    <p class="staffer-name" title=""></p>
-                                </div>
-                            {% endif %}
-
-                            <div class="notes-trigger" title="Notes for this assignment"><i class="material-icons md-24">announcements</i><div class="close-notes"></div></div>
-
-                            {% if not forloop.last %}
-                            <div class="copy-to-subsequent-days btn btn-default btn-theme-secondary" title="Copy to rest of week"><i class="material-icons md-24">input</i></div>
-                            {% else %}
-                            <div class="cannot-copy-because-last"><i class="material-icons md-24">keyboard_tab</i></div>
-                            {% endif %}
-                        </div>
-                        </td>
+                        {% include "assignment_desk/partials/assignments_table/body_cell.html" with day=assignment_form.instance.day staffer=assignment_form.staffer.value notes=assignment_form.notes.value as_form=True %}
                     {% endfor %}
                 </tr>
             {% endfor %}

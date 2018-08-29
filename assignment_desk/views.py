@@ -131,34 +131,12 @@ class WeekDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(WeekDetailView, self).get_context_data(**kwargs)
 
-        grouped_assignments = {}
-
-        for assignment in self.object.assignments.all():
-            if assignment.role.name not in grouped_assignments:
-                grouped_assignments[assignment.role.name] = {}
-
-            day_name = assignment.day.strftime('%A').lower()
-
-            grouped_assignments[
-                assignment.role.name
-            ][day_name] = assignment.staffer
-
-        roles_for_type = Role.objects.filter(
-            type_id=self.object.role_type.pk
-        ).order_by('priority')
-
-        context['available_roles'] = roles_for_type
-
-        context['roles_with_assignments'] = {
-            role.slug: {
-                (day): (
-                    grouped_assignments[role.name][day]
-                    if role.name in grouped_assignments
-                    and day in grouped_assignments[role.name]
-                    else None
-                ) for day in DAYS_IN_WEEK
+        context['role_crosswalk'] = {
+            assignment.role.id: {
+                'name': assignment.role.name,
+                'slug': assignment.role.slug,
             }
-            for role in roles_for_type
+            for assignment in self.object.assignments.all()
         }
 
         return context
