@@ -53,7 +53,7 @@
                 <li><a href="{% url 'editorial_staff:staffer-list' %}">Staff management home</a></li>
                 <li><a href="{% url 'editorial_staff:staffer-create' %}">Add new staffer</a></li>
                 {% comment %}<li><a href="">Help</a></li>{% endcomment %}
-                <li><a href="{% url 'apiauth:logout' %}">Log out</a></li>
+                {% if navigation_options and navigation_options.logout_url %}<li><a href="{% url navigation_options.logout_url %}">Log out</a></li>{% endif %}
             </ul>
         </div>
 

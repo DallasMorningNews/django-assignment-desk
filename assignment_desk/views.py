@@ -21,6 +21,7 @@ from assignment_desk.forms import InlineAssignmentFormset
 from assignment_desk.forms import WeekCreationForm
 from assignment_desk.forms import WeekEditingForm
 from assignment_desk.mixins import InlineFormsetMixin
+from assignment_desk.mixins import NavigationContextMixin
 from assignment_desk.models import Assignment
 from assignment_desk.models import Role
 from assignment_desk.models import Week
@@ -41,18 +42,19 @@ def index_view(request):
     return HttpResponse('Hello, world. You\'re at the assignment-desk index.')
 
 
-class WeekListView(LoginRequiredMixin, ListView):
+class WeekListView(LoginRequiredMixin, NavigationContextMixin, ListView):
     queryset = Week.objects.all()
     template_name = 'assignment_desk/weeks/list.html'
 
 
-class WeekCreateView(LoginRequiredMixin, CreateView):
+class WeekCreateView(LoginRequiredMixin, NavigationContextMixin, CreateView):
     model = Week
     form_class = WeekCreationForm
     template_name = 'assignment_desk/weeks/create_form.html'
 
 
-class WeekEditView(LoginRequiredMixin, InlineFormsetMixin, UpdateView):
+class WeekEditView(LoginRequiredMixin, NavigationContextMixin,
+                   InlineFormsetMixin, UpdateView):
     model = Week
     template_name = 'assignment_desk/weeks/edit_form.html'
 
@@ -120,7 +122,7 @@ class WeekEditView(LoginRequiredMixin, InlineFormsetMixin, UpdateView):
         return reverse_lazy('assignment-desk:week-list')
 
 
-class WeekDetailView(LoginRequiredMixin, DetailView):
+class WeekDetailView(LoginRequiredMixin, NavigationContextMixin, DetailView):
     queryset = Week.objects.all().prefetch_related(
         'assignments',
         'assignments__role',

@@ -1,5 +1,24 @@
 # Imports from Django.  # NOQA
+from django.conf import settings
 from django.http import HttpResponseRedirect
+
+
+class NavigationContextMixin(object):
+    def get_context_data(self, **kwargs):
+        context = super(
+            NavigationContextMixin,
+            self
+        ).get_context_data(**kwargs)
+
+        context['navigation_options'] = {
+            'logout_url': getattr(
+                settings,
+                'ASSIGNMENT_DESK_LOGOUT_URL',
+                None
+            ),
+        }
+
+        return context
 
 
 class InlineFormsetMixin(object):
