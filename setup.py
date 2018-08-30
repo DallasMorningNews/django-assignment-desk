@@ -57,6 +57,7 @@ setup(
         'Django>=1.11.0',
         'django-bootstrap3~=9.0.0',
         'django-colorfield~=0.1.10',
+        'django-editorial-staff~=0.7.4',
         # 'slacker~=0.9.0',
     ],
 )
