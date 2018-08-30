@@ -34,6 +34,17 @@ Quick start
 5.  Visit <http://127.0.0.1:8000/assignments/api/> to explore the app's REST API.
 
 
+Configuration
+-------------
+
+You can specify the following configuration options in your project's `settings.py` file. All are optional:
+
+| Setting name                 | Intended value(s)          | Purpose |
+|:-----------------------------|:---------------------------|:--------|
+| `ASSIGNMENT_DESK_LOGOUT_URL` | Any reversible URL pattern | If set, includes a "log out" link in the navigation on each `django-assignment-desk` page. |
+|||
+
+
 Front-end development
 ---------------------
 
