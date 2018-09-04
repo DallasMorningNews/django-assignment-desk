@@ -5,6 +5,8 @@ django-assignment-desk
 
 It depends on a staff list (such as the one provided by [`django-editorial-staff`](https://github.com/DallasMorningNews/django-editorial-staff)), and returns a rich API that can be queried by any number of consumers (we're using it to feed both a read-only web interface and a chatbot).
 
+This app uses `django.contrib.postgres`; therefore _it requires a PostgreSQL database and a Python-to-Postgres adapter like `psycopg2` or `psycopg2-binary` to run.
+
 More detailed documentation will be added at a later date.
 
 
@@ -15,23 +17,43 @@ Quick start
 
         pip install django-assignment-desk
 
-2.  Add \"assignment_desk\" to your INSTALLED\_APPS setting like this:
+2.  Add six entries (four helper apps, \"editorial_staff\" and \"assignment_desk\") to your INSTALLED\_APPS setting (in `settings.py`) like this:
 
         INSTALLED_APPS = [
             ...
+            'django.contrib.humanize',
+            ...
+            'bootstrap3',
+            'colorfield',
+            'rest_framework',
+            ...
+            'editorial_staff',
             'assignment_desk',
         ]
 
-3.  Include the assignment_desk URLconf in your project urls.py like this:
+    **NOTE:** If you already installed `django-editorial-staff`, you may have a number of these in your `INSTALLED_APPS` setting already. They only need to be listed once.
 
+3. Add (or update) the following lines to your `settings.py` file (to configure form rendering):
+
+        BOOTSTRAP3 = {
+            'field_renderers': {
+                'default': 'bootstrap3.renderers.FieldRenderer',
+                'inline': 'bootstrap3.renderers.InlineFieldRenderer',
+                'immaterial': 'assignment_desk.field_renderers.ImmaterialFieldRenderer',
+            },
+        }
+
+4.  Include the editorial_staff and assignment_desk URLconfs in your project's urls.py like this:
+
+        url(r'^staff/', include('editorial_staff.urls')),
         url(r'^assignments/', include('assignment_desk.urls')),
 
-4.  Run `python manage.py migrate` to install the data models into your database.
+5.  Run `python manage.py migrate` to install the data models into your database.
 
-4.  Start the development server and visit
+    **NOTE:** As mentioned above, this command will fail if you're not using ``
+
+6.  Start the development server and visit
     <http://127.0.0.1:8000/assignments/> to start editing assignments.
-
-5.  Visit <http://127.0.0.1:8000/assignments/api/> to explore the app's REST API.
 
 
 Configuration
