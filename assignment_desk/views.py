@@ -52,6 +52,17 @@ class WeekCreateView(LoginRequiredMixin, NavigationContextMixin, CreateView):
     form_class = WeekCreationForm
     template_name = 'assignment_desk/weeks/create_form.html'
 
+    def get_success_url(self):
+        submit_action = self.request.POST.get('submit', '_save')
+
+        if submit_action == '_continue':
+            return reverse_lazy(
+                'assignment-desk:week-edit',
+                kwargs={'pk': self.object.pk}
+            )
+
+        return reverse_lazy('assignment-desk:week-list')
+
 
 class WeekEditView(LoginRequiredMixin, NavigationContextMixin,
                    InlineFormsetMixin, UpdateView):
