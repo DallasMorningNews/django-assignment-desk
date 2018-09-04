@@ -31,7 +31,7 @@ Quick start
             'assignment_desk',
         ]
 
-    **NOTE:** If you already installed `django-editorial-staff`, you may have a number of these in your `INSTALLED_APPS` setting already. They only need to be listed once.
+    >   **NOTE:** If you already installed `django-editorial-staff`, you may have a number of these in your `INSTALLED_APPS` setting already. They only need to be listed once.
 
 3. Add (or update) the following lines to your `settings.py` file (to configure form rendering):
 
@@ -42,6 +42,8 @@ Quick start
                 'immaterial': 'assignment_desk.field_renderers.ImmaterialFieldRenderer',
             },
         }
+    
+    >   **NOTE:** Again, these lines only need to be listed once. If you already had similar lines, replace them with the version written here.
 
 4.  Include the editorial_staff and assignment_desk URLconfs in your project's urls.py like this:
 
@@ -50,7 +52,7 @@ Quick start
 
 5.  Run `python manage.py migrate` to install the data models into your database.
 
-    **NOTE:** As mentioned above, this command will fail if you're not using ``
+    >   **NOTE:** As mentioned above, this command will fail if you're not using a PostgreSQL database.
 
 6.  Start the development server and visit
     <http://127.0.0.1:8000/assignments/> to start editing assignments.
