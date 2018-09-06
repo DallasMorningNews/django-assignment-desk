@@ -1,7 +1,7 @@
 {% extends 'assignment_desk/base.html' %}
 
 
-{% load bootstrap3 day_addition humanize %}
+{% load bootstrap3 day_addition humanize static %}
 
 
 {% block html_title %}Assignment lists | {{ block.super }}{% endblock %}
@@ -38,7 +38,7 @@
             <div class="card">
                 <div class="card-content three-line">
                     <h4><a href="{{ detail_link }}" class="card-link">{{ week.role_type.name }} department assignments starting {{ week.beginning_date|date:'N j' }}</a></h4>
-                    <p class="card-text">{{ week.beginning_date|date:'N j, Y' }}&thinsp;&ndash;&thinsp;{{ week.beginning_date|add_days:6|date:'N j, Y' }}</p>
+                    <p class="card-text">{{ week.beginning_date|date:'N j, Y' }}&thinsp;&ndash;&thinsp;{{ week.beginning_date|add_days:day_interval|date:'N j, Y' }}</p>
                     <p>{{ week.assigned_staffers.count|apnumber|capfirst }} assignment{{ week.assigned_staffers.count|pluralize }}</p>
                 </div>
                 <div class="form-actions">
@@ -57,4 +57,9 @@
 <a class="fab fab-delayed material-icons fab-exited" aria-label="Add assignment list" href="{{ create_week }}">
     <span class="fab__icon">add</span>
 </a>
+{% endblock %}
+
+
+{% block scripts %}
+<script src="{% static 'assignment_desk/js/week.list.js' %}"></script>
 {% endblock %}

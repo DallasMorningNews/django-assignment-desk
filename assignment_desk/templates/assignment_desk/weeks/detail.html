@@ -10,10 +10,10 @@
 {% block body_class %}week-detail{% endblock %}
 
 
-{% block left_nav_buttons %}{% endblock %}
+{% block back_nav_link %}{% url 'assignment-desk:week-list' %}{% endblock %}
 
 
-{% block nav_header %}DMN Assignment desk{% endblock %}
+{% block nav_header %}{{ week.role_type.name }} assignments <span class="interval-name">Week of {{ week.beginning_date|date:"N j" }}</span>{% endblock %}
 
 
 {% block aside_shown %}shown{% endblock %}
@@ -23,7 +23,7 @@
 <div class="fullscreen-card week-primary-card">
     <div class="table-header">
         <h3 class="week-title">{{ week.role_type.name }} department assignments</h3>
-        <h5 class="date-range">{{ week.beginning_date|date:'N j, Y' }}&thinsp;&ndash;&thinsp;{{ week.beginning_date|add_days:6|date:'N j, Y' }}</h5>
+        <h5 class="date-range">{{ week.beginning_date|date:'N j, Y' }}&thinsp;&ndash;&thinsp;{{ week.beginning_date|add_days:day_interval|date:'N j, Y' }}</h5>
         {% if week.extra_information %}<p class="notes"><strong>Notes:</strong> {{ week.extra_information }}</p>{% endif %}
     </div>
 </div>

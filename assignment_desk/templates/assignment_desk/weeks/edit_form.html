@@ -19,7 +19,7 @@
 {% block back_nav_link %}{% url 'assignment-desk:week-list' %}{% endblock %}
 
 
-{% block nav_header %}Edit list: {{ week.role_type.name }} department assignments starting {{ week.beginning_date|date:'N j' }}{% endblock %}
+{% block nav_header %}Edit {{ week.role_type.name }} assignments <span class="interval-name">Week of {{ week.beginning_date|date:"N j" }}</span>{% endblock %}
 
 
 {% block right_nav_buttons %}{% endblock %}

@@ -1,7 +1,7 @@
 {% extends 'assignment_desk/base.html' %}
 
 
-{% load bootstrap3 %}
+{% load bootstrap3 static %}
 
 
 {% block html_title %}Create assignment list | {{ block.super }}{% endblock %}
@@ -13,7 +13,7 @@
 {% block back_nav_link %}{% url 'assignment-desk:week-list' %}{% endblock %}
 
 
-{% block nav_header %}Delete assignment list{% endblock %}
+{% block nav_header %}Delete  {{ week.role_type.name }} assignments <span class="interval-name">Week of {{ week.beginning_date|date:"N j" }}</span>{% endblock %}
 
 
 {% block content %}
@@ -23,14 +23,20 @@
         <h2>Confirm deletion</h2>
 
         <form method="post" class="form">
-            <p>Are you sure you want to delete the assignment list for the <strong>{{ week.role_type }}</strong> department for the <strong>{{ week }}</strong>?</p>
+            <p>Are you sure you want to delete the assignment list for the <strong>{{ week.role_type }}</strong> department for the week of <strong>{{ week.beginning_date|date:"N j, Y" }}</strong>?</p>
             {% csrf_token %}
 
             <div class="inline-button-holder">
                 {% bootstrap_button 'Yes, I\'m sure' extra_classes='btn-danger' button_type='submit' %}
-                {% url 'assignment-desk:week-edit' pk=week.pk as cancel_delete %}
-                {% bootstrap_button 'No, take me back' extra_classes='btn-secondary' button_type='link' href=cancel_delete %}
+                {% url 'assignment-desk:week-list' as cancel_delete %}
+                {% comment %} {% url 'assignment-desk:week-edit' pk=week.pk as cancel_delete %} {% endcomment %}
+                {% bootstrap_button 'No, take me back' extra_classes='btn-danger-flat' button_type='link' href=cancel_delete %}
             </div>
         </form>
     </div>
+{% endblock %}
+
+
+{% block scripts %}
+<script src="{% static 'assignment_desk/js/week.delete.js' %}"></script>
 {% endblock %}
