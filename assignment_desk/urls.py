@@ -6,6 +6,7 @@ from django.conf.urls import url
 # Imports from assignment-desk.
 from assignment_desk.views import index_view
 from assignment_desk.views import WeekCreateView
+from assignment_desk.views import WeekDeleteView
 from assignment_desk.views import WeekDetailView
 from assignment_desk.views import WeekEditView
 from assignment_desk.views import WeekListView
@@ -26,8 +27,8 @@ urlpatterns = [
                 name='week-detail'),
             url('^edit/$', WeekEditView.as_view(),
                 name='week-edit'),
-            # url('^delete/$', WeekDeleteView.as_view(),
-            #     name='week-delete'),
+            url('^delete/$', WeekDeleteView.as_view(),
+                name='week-delete'),
         ])),
     ])),
 ]

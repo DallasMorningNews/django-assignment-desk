@@ -8,6 +8,7 @@ from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView
+from django.views.generic.edit import DeleteView
 from django.views.generic.edit import UpdateView
 from django.views.generic.list import ListView
 
@@ -153,3 +154,9 @@ class WeekDetailView(LoginRequiredMixin, NavigationContextMixin, DetailView):
         }
 
         return context
+
+
+class WeekDeleteView(LoginRequiredMixin, NavigationContextMixin, DeleteView):
+    model = Week
+    template_name = 'assignment_desk/weeks/confirm_delete.html'
+    success_url = reverse_lazy('assignment-desk:week-list')
