@@ -1,5 +1,6 @@
 import moment from 'moment';
 
+
 const initializeMoment = () => {
   moment.defineLocale('en-us-apstyle', {
     meridiem(hour, minute, isLowercase) {
@@ -30,5 +31,6 @@ const initializeMoment = () => {
 
   return moment;
 };
+
 
 export default initializeMoment;

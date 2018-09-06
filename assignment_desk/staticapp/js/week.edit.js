@@ -4,7 +4,7 @@ import tingle from 'tingle.js';
 import tippy from 'tippy.js';
 
 
-import initializeMoment  from './moment-apstyle';
+import initializeMoment  from './utils/moment-apstyle';
 
 
 const allStaffers = [
@@ -381,6 +381,3 @@ assignmentCells.forEach((cell, index) => {
     });
   }
 });
-
-document.querySelectorAll('.btn')
-  .forEach((el) => { ripple.Ripple.attachTo(el); });
