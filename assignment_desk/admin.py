@@ -51,7 +51,7 @@ class AssignmentInline(admin.TabularInline):
 @admin.register(Week)
 class WeekAdmin(admin.ModelAdmin):
     fields = (
-        ('beginning_date', 'ending_date',),
+        ('beginning_date',),
         'role_type',
         'extra_information',
     )
