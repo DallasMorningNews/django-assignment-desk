@@ -1,0 +1,36 @@
+{% extends 'assignment_desk/base.html' %}
+
+
+{% load bootstrap3 %}
+
+
+{% block html_title %}Create assignment list | {{ block.super }}{% endblock %}
+
+
+{% block body_class %}week-confirm-delete{% endblock %}
+
+
+{% block back_nav_link %}{% url 'assignment-desk:week-list' %}{% endblock %}
+
+
+{% block nav_header %}Delete assignment list{% endblock %}
+
+
+{% block content %}
+    <div class="fullscreen-card">
+        {% bootstrap_messages %}
+
+        <h2>Confirm deletion</h2>
+
+        <form method="post" class="form">
+            <p>Are you sure you want to delete the assignment list for the <strong>{{ week.role_type }}</strong> department for the <strong>{{ week }}</strong>?</p>
+            {% csrf_token %}
+
+            <div class="inline-button-holder">
+                {% bootstrap_button 'Yes, I\'m sure' extra_classes='btn-danger' button_type='submit' %}
+                {% url 'assignment-desk:week-edit' pk=week.pk as cancel_delete %}
+                {% bootstrap_button 'No, take me back' extra_classes='btn-secondary' button_type='link' href=cancel_delete %}
+            </div>
+        </form>
+    </div>
+{% endblock %}
