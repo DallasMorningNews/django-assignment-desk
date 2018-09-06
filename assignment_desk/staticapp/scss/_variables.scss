@@ -66,3 +66,8 @@ $simple-menu-item-fade-duration: 0.3s;
 
 
 $choices-bg-color: #EFEFEF;
+
+$fab-color: #FFFFFF !default;
+$fab-light-ripple-config: (base-color: white, opacity: 0.16) !default;
+$fab-icon-enter-delay_: 90ms !default;
+$fab-icon-enter-duration_: 180ms !default;

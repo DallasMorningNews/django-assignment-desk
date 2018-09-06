@@ -36,6 +36,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h4.navbar-brand {
     // font-family: 'Cuprum', sans-serif;
+    display: flex;
     font-family: 'Righteous', sans-serif;
     font-size: 16px;
     font-weight: 400;
@@ -45,6 +46,20 @@ h4.navbar-brand {
 
     @media(min-width: 960px) {
         font-size: 24px;
+    }
+
+    .interval-name {
+        color: rgba(255, 255, 255, 0.68);
+        display: flex;
+
+        &::before {
+            content: '\25F7';
+            display: block;
+            font-size: 30px;
+            margin-left: 11px;
+            margin-right: 5px;
+            margin-top: -2px;
+        }
     }
 }
 
@@ -576,7 +591,7 @@ These styles are more precise to specific classes and are applied as I find them
 
 
 .select__menu {
-    z-index: 1000;
+    z-index: 750;
 }
 
 .right-buttons {
@@ -1165,7 +1180,7 @@ a.card-link {
 
                     &.empty {
                         &::after {
-                            color: rgba(0, 0, 0, 0.12);
+                            color: rgba(0, 0, 0, 0.24);
                             content: '-';
                             display: block;
                             font-size: 24px;
