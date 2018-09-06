@@ -9,7 +9,7 @@ from django.dispatch import receiver
 
 
 # Imports from assignment-desk.
-from assignment_desk import DAY_INTERVAL
+from assignment_desk.apps import DAY_INTERVAL
 from assignment_desk.models import Assignment
 from assignment_desk.models import Week
 

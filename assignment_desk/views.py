@@ -18,7 +18,7 @@ from editorial_staff.models import Staffer
 
 
 # Imports from assignment-desk.
-from assignment_desk import DAY_INTERVAL
+from assignment_desk.apps import DAY_INTERVAL
 from assignment_desk.forms import InlineAssignmentFormset
 from assignment_desk.forms import WeekCreationForm
 from assignment_desk.forms import WeekEditingForm
