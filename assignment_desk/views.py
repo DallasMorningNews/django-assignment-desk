@@ -18,6 +18,7 @@ from editorial_staff.models import Staffer
 
 
 # Imports from assignment-desk.
+from assignment_desk import DAY_INTERVAL
 from assignment_desk.forms import InlineAssignmentFormset
 from assignment_desk.forms import WeekCreationForm
 from assignment_desk.forms import WeekEditingForm
@@ -46,6 +47,13 @@ def index_view(request):
 class WeekListView(LoginRequiredMixin, NavigationContextMixin, ListView):
     queryset = Week.objects.all()
     template_name = 'assignment_desk/weeks/list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(WeekListView, self).get_context_data(**kwargs)
+
+        context['day_interval'] = DAY_INTERVAL - 1
+
+        return context
 
 
 class WeekCreateView(LoginRequiredMixin, NavigationContextMixin, CreateView):
@@ -152,6 +160,8 @@ class WeekDetailView(LoginRequiredMixin, NavigationContextMixin, DetailView):
             }
             for assignment in self.object.assignments.all()
         }
+
+        context['day_interval'] = DAY_INTERVAL - 1
 
         return context
 

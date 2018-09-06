@@ -63,9 +63,10 @@ Configuration
 
 You can specify the following configuration options in your project's `settings.py` file. All are optional:
 
-| Setting name                 | Intended value(s)          | Purpose |
-|:-----------------------------|:---------------------------|:--------|
-| `ASSIGNMENT_DESK_LOGOUT_URL` | Any reversible URL pattern | If set, includes a "log out" link in the navigation on each `django-assignment-desk` page. |
+| Setting name                   | Intended value(s)          | Purpose |
+|:-------------------------------|:---------------------------|:--------|
+| `ASSIGNMENT_DESK_LOGOUT_URL`   | Any reversible URL pattern | If set, includes a "log out" link in the navigation on each `django-assignment-desk` page. |
+| `ASSIGNMENT_DESK_DAY_INTERVAL` | Integer (default is 7)     | How many days should be included in an assignment list. |
 |||
 
 
