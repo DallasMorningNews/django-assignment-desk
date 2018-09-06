@@ -1,7 +1,7 @@
 {% extends 'assignment_desk/base.html' %}
 
 
-{% load dict_itemgetter static %}
+{% load day_addition dict_itemgetter static %}
 
 
 {% block html_title %}Assignment lists | {{ block.super }}{% endblock %}
@@ -23,7 +23,7 @@
 <div class="fullscreen-card week-primary-card">
     <div class="table-header">
         <h3 class="week-title">{{ week.role_type.name }} department assignments</h3>
-        <h5 class="date-range">{{ week.beginning_date|date:'N j, Y' }}&thinsp;&ndash;&thinsp;{{ week.ending_date|date:'N j, Y' }}</h5>
+        <h5 class="date-range">{{ week.beginning_date|date:'N j, Y' }}&thinsp;&ndash;&thinsp;{{ week.beginning_date|add_days:6|date:'N j, Y' }}</h5>
         {% if week.extra_information %}<p class="notes"><strong>Notes:</strong> {{ week.extra_information }}</p>{% endif %}
     </div>
 </div>

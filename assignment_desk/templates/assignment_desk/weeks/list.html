@@ -1,7 +1,7 @@
 {% extends 'assignment_desk/base.html' %}
 
 
-{% load bootstrap3 humanize %}
+{% load bootstrap3 day_addition humanize %}
 
 
 {% block html_title %}Assignment lists | {{ block.super }}{% endblock %}
@@ -31,19 +31,20 @@
     {% for week in week_list %}
         {% url 'assignment-desk:week-detail' pk=week.pk as detail_link %}
         {% url 'assignment-desk:week-edit' pk=week.pk as edit_link %}
+        {% url 'assignment-desk:week-delete' pk=week.pk as delete_link %}
         {% comment %}{% url 'assignment-desk:week-delete' pk=week.pk as delete_link %}{% endcomment %}
 
         <li class="card-holder">
             <div class="card">
                 <div class="card-content three-line">
                     <h4><a href="{{ detail_link }}" class="card-link">{{ week.role_type.name }} department assignments starting {{ week.beginning_date|date:'N j' }}</a></h4>
-                    <p class="card-text">{{ week.beginning_date|date:'N j, Y' }}&thinsp;&ndash;&thinsp;{{ week.ending_date|date:'N j, Y' }}</p>
+                    <p class="card-text">{{ week.beginning_date|date:'N j, Y' }}&thinsp;&ndash;&thinsp;{{ week.beginning_date|add_days:6|date:'N j, Y' }}</p>
                     <p>{{ week.assigned_staffers.count|apnumber|capfirst }} assignment{{ week.assigned_staffers.count|pluralize }}</p>
                 </div>
                 <div class="form-actions">
                     <a href="{{ detail_link }}" class="btn btn-flat btn-primary view-action"><i class="material-icons btn-icon">visibility</i>&nbsp;View</a>
                     <a href="{{ edit_link }}" class="btn btn-flat btn-primary edit-action"><i class="material-icons btn-icon">edit</i>&nbsp;Change</a>
-                    <a href="" class="btn btn-flat btn-danger delete-action"><i class="material-icons btn-icon">delete</i>&nbsp;Delete</a>
+                    <a href="{{ delete_link }}" class="btn btn-flat btn-danger delete-action"><i class="material-icons btn-icon">delete</i>&nbsp;Delete</a>
                 </div>
             </div>
         </li>
