@@ -161,7 +161,7 @@ class WeekDetailView(LoginRequiredMixin, NavigationContextMixin, DetailView):
             for assignment in self.object.assignments.all()
         }
 
-        context['day_interval'] = DAY_INTERVAL - 1
+        context['day_interval'] = get_day_interval() - 1
 
         return context
 
