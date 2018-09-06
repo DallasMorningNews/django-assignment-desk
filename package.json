@@ -20,7 +20,7 @@
   "homepage": "https://github.com/DallasMorningNews/django-assignment-desk#readme",
   "dependencies": {
     "choices.js": "^3.0.4",
-    "immaterial-ui": "^0.1.13",
+    "immaterial-ui": "^0.1.14",
     "moment": "^2.22.2",
     "pikaday": "^1.7.0",
     "tingle.js": "^0.13.2",
