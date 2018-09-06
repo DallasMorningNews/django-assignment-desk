@@ -18,7 +18,6 @@ from editorial_staff.models import Staffer
 
 
 # Imports from assignment-desk.
-from assignment_desk.apps import DAY_INTERVAL
 from assignment_desk.forms import InlineAssignmentFormset
 from assignment_desk.forms import WeekCreationForm
 from assignment_desk.forms import WeekEditingForm
@@ -27,6 +26,7 @@ from assignment_desk.mixins import NavigationContextMixin
 from assignment_desk.models import Assignment
 from assignment_desk.models import Role
 from assignment_desk.models import Week
+from assignment_desk.utils import get_day_interval
 
 
 DAYS_IN_WEEK = [
@@ -51,7 +51,7 @@ class WeekListView(LoginRequiredMixin, NavigationContextMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super(WeekListView, self).get_context_data(**kwargs)
 
-        context['day_interval'] = DAY_INTERVAL - 1
+        context['day_interval'] = get_day_interval() - 1
 
         return context
 

@@ -9,9 +9,9 @@ from django.dispatch import receiver
 
 
 # Imports from assignment-desk.
-from assignment_desk.apps import DAY_INTERVAL
 from assignment_desk.models import Assignment
 from assignment_desk.models import Week
+from assignment_desk.utils import get_day_interval
 
 
 @receiver(post_save, sender=Week, dispatch_uid="populate_assignments")
@@ -25,7 +25,7 @@ def create_assignments_for_empty_week(sender, instance, **kwargs):
                     week_id=instance.id,
                     role_id=role.id,
                     day=(instance.beginning_date + timedelta(days=day_delta))
-                ) for day_delta in range(DAY_INTERVAL)
+                ) for day_delta in range(get_day_interval())
             ])
 
         with transaction.atomic():
