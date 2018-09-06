@@ -49,13 +49,10 @@ class Role(models.Model):
 
 class Week(models.Model):
     beginning_date = models.DateField(default=get_latest_monday)
-    ending_date = models.DateField(default=get_next_sunday)
 
     role_type = models.ForeignKey(
         RoleType,
-        related_name='weeks',
-        blank=True,
-        null=True
+        related_name='weeks'
     )
 
     assigned_staffers = models.ManyToManyField(
