@@ -35,7 +35,6 @@
                     </div>
                     {% endcomment %}
                 {% endblock %}
-                {% comment %}
                 <div class="show-nav right-button">
                     <button href="javascript:;" class="header-burger">
                         <span></span>
@@ -43,15 +42,14 @@
                         <span></span>
                     </button>
                 </div>
-                {% endcomment %}
             </div>
         </header>
         {% endblock %}
 
         <div class="collapsible-nav">
             <ul class="nav-items">
-                <li><a href="{% url 'editorial_staff:staffer-list' %}">Staff management home</a></li>
-                <li><a href="{% url 'editorial_staff:staffer-create' %}">Add new staffer</a></li>
+                <li><a href="{% url 'assignment-desk:week-list' %}">Assignment Desk home</a></li>
+                <li><a href="{% url 'assignment-desk:week-create' %}">Add new assignment list</a></li>
                 {% comment %}<li><a href="">Help</a></li>{% endcomment %}
                 {% if navigation_options and navigation_options.logout_url %}<li><a href="{% url navigation_options.logout_url %}">Log out</a></li>{% endif %}
             </ul>
@@ -77,6 +75,7 @@
 
         <section id="snackbars">{% block snackbars %}{% endblock %}</section>
 
+        <script src="{% static 'assignment_desk/js/sitewide-scripts.js' %}"></script>
         {% block scripts %}
         {% endblock %}
     </body>
