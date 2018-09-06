@@ -1,5 +1,5 @@
-from django import template
-register = template.Library()
+# Imports from Django.  # NOQA
+from django.template.defaulttags import register
 
 
 @register.filter
