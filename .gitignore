@@ -298,3 +298,5 @@ aws.json
 
 *.sql
 f_*.json
+
+.vscode/settings.json
