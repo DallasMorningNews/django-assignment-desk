@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import DetailView
+from django.views.generic.base import RedirectView
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import DeleteView
 from django.views.generic.edit import UpdateView
@@ -40,8 +41,15 @@ DAYS_IN_WEEK = [
 ]
 
 
-def index_view(request):
-    return HttpResponse('Hello, world. You\'re at the assignment-desk index.')
+class IndexWeekListRedirectView(RedirectView):
+    permanent = False
+    query_string = True
+    pattern_name = 'assignment-desk:week-list'
+
+    # def get_redirect_url(self, *args, **kwargs):
+    #     article = get_object_or_404(Article, pk=kwargs['pk'])
+    #     article.update_counter()
+    #     return super().get_redirect_url(*args, **kwargs)
 
 
 class WeekListView(LoginRequiredMixin, NavigationContextMixin, ListView):

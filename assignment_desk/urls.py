@@ -4,7 +4,7 @@ from django.conf.urls import url
 
 
 # Imports from assignment-desk.
-from assignment_desk.views import index_view
+from assignment_desk.views import IndexWeekListRedirectView
 from assignment_desk.views import WeekCreateView
 from assignment_desk.views import WeekDeleteView
 from assignment_desk.views import WeekDetailView
@@ -16,7 +16,7 @@ app_name = 'assignment-desk'
 
 
 urlpatterns = [
-    url('^$', index_view, name='index'),
+    url('^$', IndexWeekListRedirectView.as_view(), name='index'),
     url('^weeks/', include([
         url('^$', WeekListView.as_view(),
             name='week-list'),
