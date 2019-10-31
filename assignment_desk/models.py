@@ -36,7 +36,7 @@ class Role(models.Model):
     description = models.TextField(blank=True, null=True)
     color = ColorField(default='#0185D3')
 
-    type = models.ForeignKey(RoleType, related_name='roles')
+    type = models.ForeignKey(RoleType, related_name='roles', on_delete=models.CASCADE)
 
     priority = models.PositiveSmallIntegerField(default=10)
 
@@ -52,7 +52,8 @@ class Week(models.Model):
 
     role_type = models.ForeignKey(
         RoleType,
-        related_name='weeks'
+        related_name='weeks',
+        on_delete=models.CASCADE
     )
 
     assigned_staffers = models.ManyToManyField(

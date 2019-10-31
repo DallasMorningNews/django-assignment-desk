@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 django-bootstrap3 = "~=9.0.0"
 django-colorfield = "~=0.1.10"
-Django = ">=1.11.0"
+Django = ">=2.0.0"
 django-editorial-staff = "~=0.8.0"
 
 [dev-packages]
@@ -20,4 +20,4 @@ tblib = "*"
 twine = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.6.9"
