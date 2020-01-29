@@ -36,7 +36,7 @@ class Role(models.Model):
     description = models.TextField(blank=True, null=True)
     color = ColorField(default='#0185D3')
 
-    type = models.ForeignKey(RoleType, related_name='roles')
+    type = models.ForeignKey(RoleType, related_name='roles', on_delete=models.CASCADE)
 
     priority = models.PositiveSmallIntegerField(default=10)
 
