@@ -52,8 +52,7 @@ class Week(models.Model):
 
     role_type = models.ForeignKey(
         RoleType,
-        related_name='weeks',
-        on_delete=models.CASCADE
+        related_name='weeks'
     )
 
     assigned_staffers = models.ManyToManyField(
