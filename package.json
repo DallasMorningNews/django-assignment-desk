@@ -21,7 +21,7 @@
   "dependencies": {
     "choices.js": "^3.0.4",
     "immaterial-ui": "^0.1.14",
-    "moment": "^2.22.2",
+    "moment": "^2.29.4",
     "pikaday": "^1.7.0",
     "tingle.js": "^0.13.2",
     "tippy.js": "^2.5.4"
