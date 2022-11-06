@@ -36,7 +36,7 @@
     "event-stream": "^3.3.4",
     "eyeglass": "^1.2.1",
     "glob": "^7.1.2",
-    "gulp": "^3.9.0",
+    "gulp": "^4.0.2",
     "gulp-postcss": "^7.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.1.0",
